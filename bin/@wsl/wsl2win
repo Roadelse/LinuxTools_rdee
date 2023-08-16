@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# This script aims to convert a wsl-windows path to actual windows path
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+path_wsl=$1
+
+disk=`echo $path_wsl | cut -d/ -f3`
+path_wsl_right=${path_wsl:7}
+
+rst=${disk^^}':\'${path_wsl_right////\\}
+
+echo $rst
