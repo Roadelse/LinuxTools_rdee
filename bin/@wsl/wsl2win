@@ -4,9 +4,14 @@
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # This script aims to convert a wsl-windows path to actual windows path
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
 path_wsl=$1
+
+
+if [[ $path_wsl =~ ^[A-Z]:\\.* ]]; then
+	echo $path_wsl
+	exit 0
+fi
+
 
 disk=`echo $path_wsl | cut -d/ -f3`
 path_wsl_right=${path_wsl:7}

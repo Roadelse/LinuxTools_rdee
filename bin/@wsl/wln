@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# This script aims to emulate the "ln" command in linux, 
+# but for windows shortcuts, via calling powershell.exe in wsl
+# Therefore, it can only be used in wsl
+# ---------------------------
+# a simple version without any security check
+# support both wsl and win path style
+# ---------------------------
+# v0.1    @2023-08-16 16:17:01  for ideal conditions
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+pws=`which powershell.exe`
+
+if [[ -z "$pws" ]]; then
+	echo "Error! Cannot find powershell.exe"
+	exit 1
+fi
+
+target=$1
+location=$2
+
+if [[ ${target:0:1} == '/' || ${target:0:1} == '.' ]]; then
+	target=`realpath $target`
+fi
+
+if [[ ${location:0:1} == '/' || ${location:0:1} == '.' ]]; then
+	location=`realpath $location`
+fi
+
+target_wsl=`win2wsl $target`
+target_bname=`basename $target_wsl`
+
+target=`wsl2win $target`
+location=`wsl2win $location`
+destination=${location}\\${target_bname}.lnk
+
+powershell.exe -c "fast_link.ps1 ${target} ${destination}"

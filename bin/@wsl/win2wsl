@@ -4,9 +4,12 @@
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # This script aims to convert a windows path to wsl path
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
 path_win="$1"
+
+if [[ $path_win =~ ^/mnt/.* ]]; then
+	echo $path_win
+	exit 0
+fi
 
 disk=${path_win:0:1}
 path_win_right=${path_win:3}
