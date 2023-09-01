@@ -12,6 +12,11 @@
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
+# Need to do:
+#   + add help
+#   + add support for specifing link path, now only support a location, and name is fixed
+
+
 
 pws=`which powershell.exe`
 
@@ -37,5 +42,8 @@ target_bname=`basename $target_wsl`
 target=`wsl2win $target`
 location=`wsl2win $location`
 destination=${location}\\${target_bname}.lnk
+
+echo "target : $target"
+echo "destination : $destination"
 
 powershell.exe -c "fast_link.ps1 ${target} ${destination}"
