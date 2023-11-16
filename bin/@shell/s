@@ -2,7 +2,7 @@
 
 # echo ${PWD} > ~/.path
 
-sFile=$pathSG_zjx
+sFile=$pathSG_re
 
 curP=${PWD}
 
